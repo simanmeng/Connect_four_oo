@@ -147,9 +147,29 @@ class Player {
 }
 
 document.getElementById('start-game').addEventListener('click', () => {
-  let p1 = new Player(document.getElementById('p1-color').value);
-  let p2 = new Player(document.getElementById('p2-color').value);
-  new Game (p1,p2);
+  const p1Color = document.getElementById('p1-color').value;
+  const p2Color = document.getElementById('p2-color').value;
+
+  if (p1Color.toLowerCase() === p2Color.toLowerCase()) {
+    alert ('Please choose a different color for one of the players!');
+  }
+  else if(CSS.supports('color', p1Color.toLowerCase()) && CSS.supports('color', p2Color.toLowerCase())) {
+    let p1 = new Player(p1Color);
+    let p2 = new Player(p2Color);
+    new Game (p1,p2);
+  } 
+  else if (!p1Color || !p2Color) {
+    alert ('Please enter a color!');
+  }
+  else if (!CSS.supports('color', p1Color.toLowerCase()) && !CSS.supports('color', p2Color.toLowerCase())) {
+    alert ('Please enter valid colors for both players!');
+  }
+  else if (!CSS.supports('color', p1Color.toLowerCase())) {
+    alert ('Please enter a valid color for Player1!');
+  }
+  else {
+    alert ('Please enter a valid color for Player2!');
+  }
 })
 
 
